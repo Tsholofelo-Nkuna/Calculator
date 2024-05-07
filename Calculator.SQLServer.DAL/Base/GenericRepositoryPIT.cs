@@ -23,19 +23,19 @@ namespace Calculator.SQLServer.DAL.Base
           this._dbSet = dbContext.Set<TEntity>();
           this._webDbContext = dbContext;
         }
-        public IEnumerable<long> DeleteBulk(List<long> ids)
+        public IEnumerable<long> DeleteBulk(List<long> masterIds)
         {
-           var toBeDeleted = this._dbSet.Where(x => ids.Contains(x.Id) && x.ModifiedOn == null)
+           var toBeDeleted = this._dbSet
+                .Where(x => masterIds.Contains(x.MasterId) && x.ModifiedOn == null)
+                .AsNoTracking()
                             .ToList()
                             .Select(x =>
                             {
                                 x.Inactive = true;
-                                x.ModifiedOn = DateTime.Now;
                                 return x;
                             });
-         
-           this._webDbContext.SaveChanges();
-          return this.InsertBulkPIT(toBeDeleted.ToList());
+          
+          return this.UpdateBulk(toBeDeleted.ToList());
         }
 
         public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> expression)

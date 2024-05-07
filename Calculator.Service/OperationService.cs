@@ -42,27 +42,35 @@ namespace Calculator.Service
             return this._mapper.Map<OperationDto>(addedOperation);
         }
 
-        public OperationDto Remove(OperationDto operationDto)
+        public OperationDto Remove(long masterId)
         {
-          var removedMasterId = this._operationRepository.DeleteBulk(new List<long> { operationDto.Id })?.FirstOrDefault() ?? -1;
+          var removedMasterId = this._operationRepository.DeleteBulk(new List<long> { masterId })?.FirstOrDefault() ?? -1;
           var removedRecord = this._operationRepository.Get(x => x.Inactive && x.ModifiedOn == null && x.MasterId == removedMasterId)?.FirstOrDefault();
           return this._mapper.Map<OperationDto> (removedRecord);
         }
 
         public IEnumerable<OperationDto> GetOperationsHistory(long masterId)
         {
-            return this._operationRepository
-                .Get(x => !x.Inactive && x.MasterId == masterId)
-                .AsEnumerable()
-                .Select(x => this._mapper.Map<OperationDto>(x))
-                .ToList();
+            if(this._operationRepository.Get(x => x.MasterId == masterId && !x.Inactive && x.ModifiedOn == null).Any())
+            {
+               return this._operationRepository
+              .Get(x => !x.Inactive && x.MasterId == masterId)
+              .AsEnumerable()
+              .Select(x => this._mapper.Map<OperationDto>(x))
+              .ToList();
+            }
+            else
+            {
+                return Enumerable.Empty<OperationDto>();    
+            }
+          
         }
 
         public void RemoveAll()
         {
             var toBeRemovedIds = this._operationRepository
                 .Get(x => !x.Inactive && x.ModifiedOn == null)
-                .Select(x => x.Id)
+                .Select(x => x.MasterId)
                 .ToList();
             this._operationRepository.DeleteBulk(toBeRemovedIds);
         }

@@ -35,7 +35,7 @@ namespace Calculator.API.Controllers
         }
 
        
-        [HttpGet("Subtract/{num1}/num2")]
+        [HttpGet("Subtract/{num1}/{num2}")]
         public OperationDto Subtract(int num1, int num2, [FromQuery] long masterId)
         {
             return this._operationService.Add(new OperationDto {
@@ -46,7 +46,7 @@ namespace Calculator.API.Controllers
             });
         }
 
-        [HttpGet("Multiply/{num1}/num2")]
+        [HttpGet("Multiply/{num1}/{num2}")]
         public OperationDto Multiply(int num1, int num2, [FromQuery] long masterId)
         {
             return this._operationService.Add(new OperationDto
@@ -59,10 +59,16 @@ namespace Calculator.API.Controllers
         }
 
         // DELETE api/<CalculatorController>/5
-        [HttpDelete("{id}")]
-        public OperationDto Delete(int id)
+        [HttpDelete("{masterId}")]
+        public OperationDto Delete(long masterId)
         {
-            return this._operationService.Remove(new OperationDto { Id = id });
+            return this._operationService.Remove(masterId);
+        }
+
+        [HttpDelete]
+        public void Delete()
+        {
+             this._operationService.RemoveAll();
         }
     }
 }
