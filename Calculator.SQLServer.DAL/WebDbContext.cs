@@ -25,6 +25,8 @@ namespace Calculator.SQLServer.DAL
 
         public DbSet<OperationEntity> Operations { get; set; }
 
+        public DbSet<MREntity> MR { get; set; }
+
     }
 
     public class ConnectionStringConfig
