@@ -58,6 +58,32 @@ namespace Calculator.API.Controllers
             });
         }
 
+        [HttpGet("MRPlus/{num}")]
+        public OperationDto MRPlus(int num, [FromQuery] long masterId)
+        {
+
+            var lastOp = this._operationService.FindLastActiveOperation(masterId, OperationType.MemoryPlus);
+            return this._operationService.Add(new OperationDto
+            {
+                Type = OperationType.MemoryPlus,
+                FirstParameter = lastOp?.ArithmeticResult ?? 0,
+                SecondParameter = num,
+            });
+        }
+
+        [HttpGet("MRMinus/{num}")]
+        public OperationDto MRMinus(int num, [FromQuery] long masterId)
+        {
+
+            var lastOp = this._operationService.FindLastActiveOperation(masterId, OperationType.MemoryMinus);
+            return this._operationService.Add(new OperationDto
+            {
+                Type = OperationType.MemoryMinus,
+                FirstParameter = lastOp?.ArithmeticResult ?? 0,
+                SecondParameter = num,
+            });
+        }
+
         // DELETE api/<CalculatorController>/5
         [HttpDelete("{masterId}")]
         public OperationDto Delete(long masterId)

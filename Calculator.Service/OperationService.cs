@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Calculator.Model;
+using Calculator.Model.Common.Enums;
 using Calculator.Model.DataTransferObjects;
 using Calculator.SQLServer.DAL.Repository;
 
@@ -73,6 +74,14 @@ namespace Calculator.Service
                 .Select(x => x.MasterId)
                 .ToList();
             this._operationRepository.DeleteBulk(toBeRemovedIds);
+        }
+
+        public OperationDto FindLastActiveOperation(long masterId, OperationType optType)
+        {
+            var op = this._operationRepository
+                .Get(x => x.MasterId == masterId && !x.Inactive && x.ModifiedOn == null)
+                .FirstOrDefault();
+            return this._mapper.Map<OperationDto>(op);
         }
         
     }
