@@ -2,7 +2,15 @@
     
     border: 1px solid #eaeaea;
     color: #303030;
-   grid-area: a;
+    grid-area: a;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+
+.calc-display div{
+    margin: auto;
+    display: inline-block;
 }
 
 .calc-container{
@@ -27,6 +35,7 @@
     font-size: 1em;
     background-color: aliceblue;
     border: 1px solid #0094ff;
+    cursor: pointer;
 }
 
 .operation-panel{

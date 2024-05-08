@@ -5,11 +5,16 @@
     </div>
     <div class="number-panel">
       <ng-container *ngFor="let num of calcButtonDigits; let i = index;">
-       <div *ngIf="num < 10" class="number-button">{{num}}</div>
-        <div *ngIf="num === 10">{{0}}</div>
+        <div *ngIf="num < 10" class="number-button">{{num}}</div>
+        <div class="number-button" *ngIf="num === 10">{{0}}</div>
       </ng-container>
+      <div class="number-button">=</div>
+      <div class="number-button">/</div>
     </div>
-    <div class="operation-panel"></div>
+    <div class="operation-panel">
+     <div class="number-button">+</div><div class="number-button">-</div>
+     <div class="number-button">*</div>
+    </div>
   </div>
 </div>
 
