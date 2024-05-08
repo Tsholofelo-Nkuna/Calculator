@@ -1,1 +1,1 @@
-﻿select * from Operations o
+﻿select * from Operations;

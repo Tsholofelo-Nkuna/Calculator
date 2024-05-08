@@ -65,11 +65,23 @@ namespace Calculator.API.Controllers
             });
         }
 
+        [HttpGet("Divide/{num1}/{num2}")]
+        public OperationDto Divide(int num1, int num2, [FromQuery] long masterId)
+        {
+            return this._operationService.Add(new OperationDto
+            {
+                FirstParameter = num1,
+                SecondParameter = num2,
+                Type = OperationType.Divide,
+                MasterId = masterId
+            });
+        }
+
         [HttpGet("MRPlus/{num}")]
         public OperationDto MRPlus(int num, [FromQuery] long masterId)
         {
 
-            var lastOp = this._operationService.FindLastActiveOperation(masterId, OperationType.MemoryPlus);
+            var lastOp = this._operationService.FindLastActiveMemoryOperation(masterId);
             return this._operationService.Add(new OperationDto
             {
                 Type = OperationType.MemoryPlus,
@@ -83,7 +95,7 @@ namespace Calculator.API.Controllers
         public OperationDto MRMinus(int num, [FromQuery] long masterId)
         {
 
-            var lastOp = this._operationService.FindLastActiveOperation(masterId, OperationType.MemoryMinus);
+            var lastOp = this._operationService.FindLastActiveMemoryOperation(masterId);
             return this._operationService.Add(new OperationDto
             {
                 Type = OperationType.MemoryMinus,
@@ -91,6 +103,14 @@ namespace Calculator.API.Controllers
                 SecondParameter = num,
                 MasterId = masterId,
             });
+        }
+
+        [HttpGet("MR/{masterId}")]
+        public OperationDto MR(long masterId)
+        {
+
+            var lastOp = this._operationService.FindLastActiveMemoryOperation(masterId);
+            return lastOp ?? new OperationDto();
         }
 
         // DELETE api/<CalculatorController>/5

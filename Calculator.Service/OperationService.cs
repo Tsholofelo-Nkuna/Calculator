@@ -4,6 +4,7 @@ using Calculator.Model;
 using Calculator.Model.Common.Enums;
 using Calculator.Model.DataTransferObjects;
 using Calculator.SQLServer.DAL.Repository;
+using System.Security.Cryptography;
 
 namespace Calculator.Service
 {
@@ -69,11 +70,17 @@ namespace Calculator.Service
 
         public IEnumerable<IGrouping<long, OperationDto>> GetOperationHistory()
         {
-            return this._operationRepository
-             .Get(x => !x.Inactive)
-             .ToList()
-             .Select(x => this._mapper.Map<OperationDto>(x))
-             .GroupBy(x => x.MasterId);
+            var activeRecordsQuery = this._operationRepository
+             .Get(x => !x.Inactive);
+
+            var activeTipRecordQuery = this._operationRepository.Get(x => !x.Inactive && x.ModifiedOn == null);
+            var activeRecordHisory = (from record in activeRecordsQuery
+                                     join activeTipRecord in activeTipRecordQuery
+                                     on record.MasterId equals activeTipRecord.MasterId
+                                     select record).ToList();
+           return activeRecordHisory
+                .Select(x => this._mapper.Map<OperationDto>(x))
+                .GroupBy(x => x.MasterId) ;
         }
 
         public void RemoveAll()
@@ -85,10 +92,12 @@ namespace Calculator.Service
             this._operationRepository.DeleteBulk(toBeRemovedIds);
         }
 
-        public OperationDto FindLastActiveOperation(long masterId, OperationType optType)
+        public OperationDto FindLastActiveMemoryOperation(long masterId)
         {
             var op = this._operationRepository
-                .Get(x => x.MasterId == masterId && !x.Inactive && x.ModifiedOn == null)
+                .Get(x => x.MasterId == masterId && !x.Inactive
+                && (x.Type == OperationType.MemoryMinus || x.Type == OperationType.MemoryPlus))
+                .OrderByDescending(x => x.Id)
                 .FirstOrDefault();
             return this._mapper.Map<OperationDto>(op);
         }

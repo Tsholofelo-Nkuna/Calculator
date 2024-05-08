@@ -1,19 +1,24 @@
-<div style="width:256px">
+<div style="width:286px;margin:auto;">
   <div class="calc-container">
-    <div class="calc-display">
-      <input />
+    <div class="calc-display" [formGroup]="screenOutput">
+      <input [readonly]="true" [formControl]="getControl('operationText')" />
+    </div>
+    <div class="memory-button-panel">
+      <button (click)="onCalcButtonClick('M+')" >M+</button> &nbsp;<button (click)="onCalcButtonClick('M-')">M-</button>&nbsp;<button (click)="onCalcButtonClick('MR')">Memory Recall</button>
+      &nbsp;<button (click)="screenOutput.reset();">Clear Entry</button>
+      &nbsp;<button (click)="onClearAllClick()">Clear All</button>&nbsp;<button (click)="onShowHistoryClick()">Show History</button>
     </div>
     <div class="number-panel">
       <ng-container *ngFor="let num of calcButtonDigits; let i = index;">
-        <div *ngIf="num < 10" class="number-button">{{num}}</div>
-        <div class="number-button" *ngIf="num === 10">{{0}}</div>
+        <div (click)="onCalcButtonClick(num.toString())" *ngIf="num < 10" class="number-button">{{num}}</div>
+        <div (click)="onCalcButtonClick('0')" class="number-button" *ngIf="num === 10">{{0}}</div>
       </ng-container>
-      <div class="number-button">=</div>
-      <div class="number-button">/</div>
+      <div (click)="onCalcButtonClick('=')" class="number-button">=</div>
+      <div (click)="onCalcButtonClick('/')" class="number-button">/</div>
     </div>
     <div class="operation-panel">
-     <div class="number-button">+</div><div class="number-button">-</div>
-     <div class="number-button">*</div>
+      <div (click)="onCalcButtonClick('+')" class="number-button">+</div><div (click)="onCalcButtonClick('-')" class="number-button">-</div>
+      <div (click)="onCalcButtonClick('*')" class="number-button">*</div>
     </div>
   </div>
 </div>
