@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.API", "Calculator.API\Calculator.API.csproj", "{8F000BC5-3996-4F11-87D3-79E158F6052B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.API", "Calculator.API\Calculator.API.csproj", "{8F000BC5-3996-4F11-87D3-79E158F6052B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.SQLServer.DAL", "Calculator.SQLServer.DAL\Calculator.SQLServer.DAL.csproj", "{AF862142-6282-4E54-A88D-EEBD0837B2FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.SQLServer.DAL", "Calculator.SQLServer.DAL\Calculator.SQLServer.DAL.csproj", "{AF862142-6282-4E54-A88D-EEBD0837B2FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.Model", "Calculator.Model\Calculator.Model.csproj", "{64D09982-A782-4E09-9152-BD055F9D21AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Model", "Calculator.Model\Calculator.Model.csproj", "{64D09982-A782-4E09-9152-BD055F9D21AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.Service", "Calculator.Service\Calculator.Service.csproj", "{6AC43557-D392-4EB1-9487-D3209BB9EE52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Service", "Calculator.Service\Calculator.Service.csproj", "{6AC43557-D392-4EB1-9487-D3209BB9EE52}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Calculator.UI", "Calculator.UI\Calculator.UI.esproj", "{5461FC79-9430-45B0-84B6-31CD92429245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{6AC43557-D392-4EB1-9487-D3209BB9EE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AC43557-D392-4EB1-9487-D3209BB9EE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AC43557-D392-4EB1-9487-D3209BB9EE52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5461FC79-9430-45B0-84B6-31CD92429245}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,14 @@ namespace Calculator.API.Controllers
         private readonly OperationService _operationService;
         public CalculatorController(OperationService operationService) {
             this._operationService = operationService;
-        }   
+        }
+
+        [HttpGet]
+        public IEnumerable<IGrouping<long, OperationDto>> Get()
+        {
+            var result = this._operationService.GetOperationHistory();
+            return result;
+        }
         
         [HttpGet("{masterId}")]
         public IEnumerable<OperationDto> Get(long masterId)
@@ -68,6 +75,7 @@ namespace Calculator.API.Controllers
                 Type = OperationType.MemoryPlus,
                 FirstParameter = lastOp?.ArithmeticResult ?? 0,
                 SecondParameter = num,
+                MasterId = masterId,
             });
         }
 
@@ -81,6 +89,7 @@ namespace Calculator.API.Controllers
                 Type = OperationType.MemoryMinus,
                 FirstParameter = lastOp?.ArithmeticResult ?? 0,
                 SecondParameter = num,
+                MasterId = masterId,
             });
         }
 

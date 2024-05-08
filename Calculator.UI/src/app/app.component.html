@@ -1,0 +1,18 @@
+<div style="width:256px">
+  <div class="calc-container">
+    <div class="calc-display">
+      <input />
+    </div>
+    <div class="number-panel">
+      <ng-container *ngFor="let num of calcButtonDigits; let i = index;">
+       <div *ngIf="num < 10" class="number-button">{{num}}</div>
+        <div *ngIf="num === 10">{{0}}</div>
+      </ng-container>
+    </div>
+    <div class="operation-panel"></div>
+  </div>
+</div>
+
+<ng-template #buttonContentTemplate let-index>
+
+</ng-template>

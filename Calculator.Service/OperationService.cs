@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Calculator.Model;
 using Calculator.Model.Common.Enums;
 using Calculator.Model.DataTransferObjects;
@@ -64,7 +65,15 @@ namespace Calculator.Service
             {
                 return Enumerable.Empty<OperationDto>();    
             }
-          
+        }
+
+        public IEnumerable<IGrouping<long, OperationDto>> GetOperationHistory()
+        {
+            return this._operationRepository
+             .Get(x => !x.Inactive)
+             .ToList()
+             .Select(x => this._mapper.Map<OperationDto>(x))
+             .GroupBy(x => x.MasterId);
         }
 
         public void RemoveAll()
