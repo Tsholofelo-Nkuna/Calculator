@@ -12,10 +12,11 @@ export class CalculatorService {
   constructor() { }
 
   get serviceUrl(){
-    return isDevMode() ? 'https://localhost:7279/api/Calculator' : '';
+    return isDevMode() ? 'https://localhost:7279/api/Calculator' : 'https://nkunaapi.growthlytix.co.za/api/Calculator';
   }
 
   getOperationHistory(): Observable<Array<OperationDto[]>>{
+    console.log(this.serviceUrl);
     return this._httpClient.get<Array<OperationDto[]>>(this.serviceUrl);
   }
 

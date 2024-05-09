@@ -123,7 +123,7 @@ namespace Calculator.API.Controllers
         [HttpDelete]
         public void Delete()
         {
-             this._operationService.RemoveAll();
+            this._operationService.RemoveAll();
         }
     }
 }
