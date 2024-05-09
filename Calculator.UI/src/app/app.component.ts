@@ -71,9 +71,15 @@ export class AppComponent implements OnInit {
          displayedHistory = response?.allHistory?.[0] ?? [];
        }
       let historyString =  displayedHistory.map(next => {
-         const secondOperand = !(next.type == OperationType.MemoryMinus || next.type == OperationType.MemoryPlus) ? next.secondParameter : null;
-         const operationStr = `${next.firstParameter}${this.operationLabel(next.type)}${secondOperand ?? ''} = ${next.arithmeticResult}`;
-         return operationStr;
+        let operationStr = '';
+         if(!(next.type === OperationType.MemoryPlus || next.type === OperationType.MemoryMinus)){
+            operationStr = `${next.firstParameter}${this.operationLabel(next.type)}${next.secondParameter ?? ''} = ${next.arithmeticResult}`;
+        
+         }
+         else{
+           operationStr  = `${next.secondParameter}${this.operationLabel(next.type)}=${next.arithmeticResult}`;
+         }
+          return operationStr;
        });
        alert(displayedHistory?.length ? historyString.join('\n'): 'No History data');
      })
