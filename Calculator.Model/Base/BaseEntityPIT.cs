@@ -13,5 +13,7 @@ namespace Calculator.Model.Base
         public long MasterId { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public bool Inactive { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? CreatedBy { get; set; }
     }
 }
