@@ -8,7 +8,7 @@ namespace Calculator.Model
     public class OperationEntity : BaseEntityPIT
     {
         public OperationType Type { get; set; }
-        public int OperationId { get; set; }
+     
         public double ArithmeticResult => Type switch
         {
             OperationType.Add or OperationType.MemoryPlus => this.FirstParameter + this.SecondParameter,
